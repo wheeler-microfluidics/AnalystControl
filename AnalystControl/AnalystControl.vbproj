@@ -81,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnalystControl.vb" />
+    <Compile Include="AnalystRemoteHandler.vb" />
     <Compile Include="frmAnalystControl.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -88,7 +89,6 @@
       <DependentUpon>frmAnalystControl.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MessageHandler.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
