@@ -1,5 +1,6 @@
 ﻿Public Class frmAnalystControl
     Dim analystControl As AnalystControl
+    Dim message_handler As MessageHandler
 
     Private Sub frmAnalystControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         analystControl = New AnalystControl()
@@ -20,7 +21,11 @@
     End Sub
 
     Private Sub btnQueueStart_Click(sender As Object, e As EventArgs) Handles btnQueueStart.Click
-        analystControl.Start()
+        analystControl.StartAcquisition()
+    End Sub
+
+    Private Sub btnStopAcquisition_Click(sender As Object, e As EventArgs) Handles btnQueueStopAcquisition.Click
+        analystControl.StopAcquisition()
     End Sub
 
     Private Sub btnQueueStop_Click(sender As Object, e As EventArgs) Handles btnQueueStop.Click
@@ -33,9 +38,13 @@
             lblStatus.Text = "Connected"
             lblStatus.ForeColor = Color.FromName("DarkGreen")
             btnQueueConnect.Enabled = False
-            For Each button In {btnQueueReady, btnQueueStart, btnQueueStop}
+            For Each button In {btnQueueReady, btnQueueStart, btnQueueStop, btnQueueStopAcquisition}
                 button.Enabled = True
             Next
         End If
+    End Sub
+
+    Private Sub btnRemoteOnOff_Click(sender As Object, e As EventArgs) Handles btnRemoteOnOff.Click
+        message_handler = New MessageHandler("tcp://*:5555")
     End Sub
 End Class

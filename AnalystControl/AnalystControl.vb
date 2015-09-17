@@ -12,8 +12,12 @@
         theQueue.Ready()
     End Sub
 
-    Public Sub Start()
+    Public Sub StartAcquisition()
         theQueue.StartAcquisition()
+    End Sub
+
+    Public Sub StopAcquisition()
+        theQueue.StopAcquisition()
     End Sub
 
     Public Sub StopQueue()
