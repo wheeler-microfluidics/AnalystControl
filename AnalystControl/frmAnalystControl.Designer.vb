@@ -38,7 +38,10 @@ Partial Class frmAnalystControl
         Me.lblRemoteStatus = New System.Windows.Forms.Label()
         Me.lblRemoteStatusTag = New System.Windows.Forms.Label()
         Me.btnRemoteOnOff = New System.Windows.Forms.Button()
-        Me.txtRemoteUri = New System.Windows.Forms.TextBox()
+        Me.txtRemoteResponseUri = New System.Windows.Forms.TextBox()
+        Me.lblRemoteResponseUriTag = New System.Windows.Forms.Label()
+        Me.lblRemotePublishUriTag = New System.Windows.Forms.Label()
+        Me.txtRemotePublishUri = New System.Windows.Forms.TextBox()
         Me.grpAnalyst.SuspendLayout()
         Me.grpQueue.SuspendLayout()
         Me.grpRemoteControl.SuspendLayout()
@@ -60,7 +63,7 @@ Partial Class frmAnalystControl
         Me.grpAnalyst.Controls.Add(Me.lblAnalystStatusTag)
         Me.grpAnalyst.Controls.Add(Me.grpQueue)
         Me.grpAnalyst.Controls.Add(Me.btnConnect)
-        Me.grpAnalyst.Location = New System.Drawing.Point(11, 63)
+        Me.grpAnalyst.Location = New System.Drawing.Point(11, 108)
         Me.grpAnalyst.Margin = New System.Windows.Forms.Padding(2)
         Me.grpAnalyst.Name = "grpAnalyst"
         Me.grpAnalyst.Padding = New System.Windows.Forms.Padding(2)
@@ -190,7 +193,10 @@ Partial Class frmAnalystControl
         '
         'grpRemoteControl
         '
-        Me.grpRemoteControl.Controls.Add(Me.txtRemoteUri)
+        Me.grpRemoteControl.Controls.Add(Me.lblRemotePublishUriTag)
+        Me.grpRemoteControl.Controls.Add(Me.txtRemotePublishUri)
+        Me.grpRemoteControl.Controls.Add(Me.lblRemoteResponseUriTag)
+        Me.grpRemoteControl.Controls.Add(Me.txtRemoteResponseUri)
         Me.grpRemoteControl.Controls.Add(Me.lblRemoteStatus)
         Me.grpRemoteControl.Controls.Add(Me.lblRemoteStatusTag)
         Me.grpRemoteControl.Controls.Add(Me.btnRemoteOnOff)
@@ -198,7 +204,7 @@ Partial Class frmAnalystControl
         Me.grpRemoteControl.Margin = New System.Windows.Forms.Padding(2)
         Me.grpRemoteControl.Name = "grpRemoteControl"
         Me.grpRemoteControl.Padding = New System.Windows.Forms.Padding(2)
-        Me.grpRemoteControl.Size = New System.Drawing.Size(303, 48)
+        Me.grpRemoteControl.Size = New System.Drawing.Size(303, 93)
         Me.grpRemoteControl.TabIndex = 4
         Me.grpRemoteControl.TabStop = False
         Me.grpRemoteControl.Text = "Remote control"
@@ -228,7 +234,7 @@ Partial Class frmAnalystControl
         '
         'btnRemoteOnOff
         '
-        Me.btnRemoteOnOff.Location = New System.Drawing.Point(211, 18)
+        Me.btnRemoteOnOff.Location = New System.Drawing.Point(105, 20)
         Me.btnRemoteOnOff.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRemoteOnOff.Name = "btnRemoteOnOff"
         Me.btnRemoteOnOff.Size = New System.Drawing.Size(56, 19)
@@ -236,19 +242,49 @@ Partial Class frmAnalystControl
         Me.btnRemoteOnOff.Text = "Enable"
         Me.btnRemoteOnOff.UseVisualStyleBackColor = True
         '
-        'txtRemoteUri
+        'txtRemoteResponseUri
         '
-        Me.txtRemoteUri.Location = New System.Drawing.Point(106, 20)
-        Me.txtRemoteUri.Name = "txtRemoteUri"
-        Me.txtRemoteUri.Size = New System.Drawing.Size(100, 20)
-        Me.txtRemoteUri.TabIndex = 6
-        Me.txtRemoteUri.Text = "tcp://*:5555"
+        Me.txtRemoteResponseUri.Location = New System.Drawing.Point(95, 42)
+        Me.txtRemoteResponseUri.Name = "txtRemoteResponseUri"
+        Me.txtRemoteResponseUri.Size = New System.Drawing.Size(100, 20)
+        Me.txtRemoteResponseUri.TabIndex = 6
+        Me.txtRemoteResponseUri.Text = "tcp://*:5555"
+        '
+        'lblRemoteResponseUriTag
+        '
+        Me.lblRemoteResponseUriTag.AutoSize = True
+        Me.lblRemoteResponseUriTag.Location = New System.Drawing.Point(4, 44)
+        Me.lblRemoteResponseUriTag.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblRemoteResponseUriTag.Name = "lblRemoteResponseUriTag"
+        Me.lblRemoteResponseUriTag.Size = New System.Drawing.Size(90, 15)
+        Me.lblRemoteResponseUriTag.TabIndex = 7
+        Me.lblRemoteResponseUriTag.Text = "Response URI:"
+        Me.lblRemoteResponseUriTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'lblRemotePublishUriTag
+        '
+        Me.lblRemotePublishUriTag.AutoSize = True
+        Me.lblRemotePublishUriTag.Location = New System.Drawing.Point(4, 68)
+        Me.lblRemotePublishUriTag.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblRemotePublishUriTag.Name = "lblRemotePublishUriTag"
+        Me.lblRemotePublishUriTag.Size = New System.Drawing.Size(75, 15)
+        Me.lblRemotePublishUriTag.TabIndex = 9
+        Me.lblRemotePublishUriTag.Text = "Publish URI:"
+        Me.lblRemotePublishUriTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'txtRemotePublishUri
+        '
+        Me.txtRemotePublishUri.Location = New System.Drawing.Point(95, 66)
+        Me.txtRemotePublishUri.Name = "txtRemotePublishUri"
+        Me.txtRemotePublishUri.Size = New System.Drawing.Size(100, 20)
+        Me.txtRemotePublishUri.TabIndex = 8
+        Me.txtRemotePublishUri.Text = "tcp://*:6666"
         '
         'frmAnalystControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(337, 210)
+        Me.ClientSize = New System.Drawing.Size(340, 258)
         Me.Controls.Add(Me.grpRemoteControl)
         Me.Controls.Add(Me.grpAnalyst)
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -279,5 +315,8 @@ Partial Class frmAnalystControl
     Friend WithEvents lblRemoteStatusTag As Label
     Friend WithEvents btnRemoteOnOff As Button
     Friend WithEvents btnQueueStopAcquisition As Button
-    Friend WithEvents txtRemoteUri As TextBox
+    Friend WithEvents txtRemoteResponseUri As TextBox
+    Friend WithEvents lblRemoteResponseUriTag As Label
+    Friend WithEvents lblRemotePublishUriTag As Label
+    Friend WithEvents txtRemotePublishUri As TextBox
 End Class

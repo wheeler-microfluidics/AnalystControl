@@ -1,5 +1,5 @@
 ﻿Public Class frmAnalystControl
-    Dim analystControl_ As AnalystControl
+    Dim analystControl As AnalystControl
     Dim message_handler As AnalystRemoteHandler
 
     Private Sub frmAnalystControl_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
@@ -7,36 +7,36 @@
     End Sub
 
     Private Sub frmAnalystControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        analystControl_ = New AnalystControl()
-        message_handler = New AnalystRemoteHandler(analystControl_)
-        AddHandler analystControl_.Analyst_Initialized, AddressOf EnableAnalystUI
-        AddHandler analystControl_.Queue_Initialized, AddressOf EnableQueueUI
+        analystControl = New AnalystControl()
+        message_handler = New AnalystRemoteHandler(analystControl)
+        AddHandler analystControl.Analyst_Initialized, AddressOf EnableAnalystUI
+        AddHandler analystControl.Queue_Initialized, AddressOf EnableQueueUI
         AddHandler message_handler.Handler_Connected, AddressOf ShowRemoteEnabled
         AddHandler message_handler.Handler_Closed, AddressOf ShowRemoteDisabled
     End Sub
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
-        analystControl_.Connect()
+        analystControl.Connect()
     End Sub
 
     Private Sub btnQueueReady_Click(sender As Object, e As EventArgs) Handles btnQueueReady.Click
-        analystControl_.Ready()
+        analystControl.Ready()
     End Sub
 
     Private Sub btnQueueStart_Click(sender As Object, e As EventArgs) Handles btnQueueStart.Click
-        analystControl_.StartAcquisition()
+        analystControl.StartAcquisition()
     End Sub
 
     Private Sub btnStopAcquisition_Click(sender As Object, e As EventArgs) Handles btnQueueStopAcquisition.Click
-        analystControl_.StopAcquisition()
+        analystControl.StopAcquisition()
     End Sub
 
     Private Sub btnQueueStop_Click(sender As Object, e As EventArgs) Handles btnQueueStop.Click
-        analystControl_.StopQueue()
+        analystControl.StopQueue()
     End Sub
 
     Private Sub btnQueueConnect_Click(sender As Object, e As EventArgs) Handles btnQueueConnect.Click
-        analystControl_.QueueConnect(True)
+        analystControl.QueueConnect(True)
     End Sub
 
     Delegate Sub EnableAnalystUICallback()
@@ -64,7 +64,8 @@
             ' Connected to Analyst queue successfully.
             lblStatus.Text = "Connected"
             lblStatus.ForeColor = Color.FromName("DarkGreen")
-            For Each button In {btnQueueReady, btnQueueStart, btnQueueStop, btnQueueStopAcquisition}
+            For Each button In {btnQueueReady, btnQueueStart, btnQueueStop,
+                                btnQueueStopAcquisition}
                 button.Enabled = True
             Next
         End If
@@ -74,7 +75,7 @@
         If message_handler.Connected() Then
             message_handler.Close()
         Else
-            message_handler.setUris("tcp://*:5555")
+            message_handler.setUris(txtRemoteResponseUri.Text, txtRemotePublishUri.Text)
         End If
     End Sub
 
@@ -82,13 +83,15 @@
         btnRemoteOnOff.Text = "Disable"
         lblRemoteStatus.Text = "Enabled"
         lblRemoteStatus.ForeColor = Color.FromName("DarkGreen")
-        txtRemoteUri.Enabled = False
+        txtRemoteResponseUri.Enabled = False
+        txtRemotePublishUri.Enabled = False
     End Sub
 
     Private Sub ShowRemoteDisabled()
         btnRemoteOnOff.Text = "Enable"
         lblRemoteStatus.Text = "Disabled"
         lblRemoteStatus.ForeColor = Color.FromName("Orange")
-        txtRemoteUri.Enabled = True
+        txtRemoteResponseUri.Enabled = True
+        txtRemotePublishUri.Enabled = True
     End Sub
 End Class

@@ -2,15 +2,20 @@
     Dim context As NetMQ.NetMQContext
     Dim poller As NetMQ.Poller
     Dim repSocket As NetMQ.NetMQSocket
+    Dim pubSocket As NetMQ.NetMQSocket
     Dim analystControl As AnalystControl
     Dim initialized As Boolean
     Dim responseCode
+    Private state As String
     Public Event Handler_Connected()
     Public Event Handler_Closed()
 
     Public Sub New(ByRef analystControl_ As AnalystControl)
         analystControl = analystControl_
+        AddHandler analystControl.Queue_StateUpdate, AddressOf analystControl_Queue_StateUpdate
+
         responseCode = Nothing
+        state = Nothing
     End Sub
 
     Public Function Connected()
@@ -21,13 +26,14 @@
         If initialized Then
             poller.CancelAndJoin()
             repSocket.Close()
+            pubSocket.Close()
             context.Terminate()
             initialized = False
             RaiseEvent Handler_Closed()
         End If
     End Sub
 
-    Public Sub setUris(rep_uri As String)
+    Public Sub setUris(rep_uri As String, pub_uri As String)
         If initialized Then
             Close()
         End If
@@ -35,15 +41,25 @@
         context = NetMQ.NetMQContext.Create()
         repSocket = context.CreateResponseSocket()
         repSocket.Bind(rep_uri)
+        pubSocket = context.CreatePublisherSocket()
+        pubSocket.Bind(pub_uri)
+
         AddHandler repSocket.SendReady, AddressOf repSocket_SendReady
         AddHandler repSocket.ReceiveReady, AddressOf repSocket_ReceiveReady
 
         poller = New NetMQ.Poller()
         poller.AddSocket(repSocket)
+        poller.AddSocket(pubSocket)
         initialized = True
         RaiseEvent Handler_Connected()
         poller.PollTillCancelledNonBlocking()
         Console.WriteLine("Polling...")
+    End Sub
+
+    Protected Overridable Sub analystControl_Queue_StateUpdate(state_ As String)
+        If initialized Then
+            NetMQ.OutgoingSocketExtensions.SendFrame(pubSocket, state_)
+        End If
     End Sub
 
     Protected Sub DisplayRepMsg(message As String)
@@ -56,10 +72,8 @@
         Try
             If reqMsg = "Connect" Then
                 analystControl.Connect()
-                'analystControlForm.Draw()
             ElseIf reqMsg = "QueueConnect" Then
                 analystControl.QueueConnect(True)
-                'analystControlForm.Draw()
             ElseIf reqMsg = "Ready" Then
                 analystControl.Ready()
             ElseIf reqMsg = "StartAcquisition" Then

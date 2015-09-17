@@ -14,6 +14,7 @@ Public Class AnalystControl
     Public Event Queue_Ready()
     Public Event Queue_SampleWaiting()
     Public Event Queue_Acquiring()
+    Public Event Queue_StateUpdate(state As String)
 
     Public Function Connect()
         theAnalyst = GetObject(, "Analyst.Application")
@@ -69,8 +70,13 @@ Public Class AnalystControl
                 state = "Aborting"
             Case QSERVER_STATUS.QS_PAUSED
                 state = "Paused"
+            Case Else
+                state = Nothing
         End Select
         Console.WriteLine("Status update received: {0}", state)
+        If Not IsNothing(state) Then
+            RaiseEvent Queue_StateUpdate(state)
+        End If
     End Sub
 
     Public Sub Ready()
