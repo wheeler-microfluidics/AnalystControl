@@ -5,17 +5,25 @@
     Dim analystControl As AnalystControl
     Dim initialized As Boolean
     Dim responseCode
+    Public Event Handler_Connected()
+    Public Event Handler_Closed()
 
     Public Sub New(ByRef analystControl_ As AnalystControl)
         analystControl = analystControl_
         responseCode = Nothing
     End Sub
 
+    Public Function Connected()
+        Return initialized
+    End Function
+
     Public Sub Close()
         If initialized Then
             poller.CancelAndJoin()
             repSocket.Close()
             context.Terminate()
+            initialized = False
+            RaiseEvent Handler_Closed()
         End If
     End Sub
 
@@ -33,6 +41,7 @@
         poller = New NetMQ.Poller()
         poller.AddSocket(repSocket)
         initialized = True
+        RaiseEvent Handler_Connected()
         poller.PollTillCancelledNonBlocking()
         Console.WriteLine("Polling...")
     End Sub

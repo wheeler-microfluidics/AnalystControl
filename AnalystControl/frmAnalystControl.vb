@@ -11,6 +11,8 @@
         message_handler = New AnalystRemoteHandler(analystControl_)
         AddHandler analystControl_.Analyst_Initialized, AddressOf EnableAnalystUI
         AddHandler analystControl_.Queue_Initialized, AddressOf EnableQueueUI
+        AddHandler message_handler.Handler_Connected, AddressOf ShowRemoteEnabled
+        AddHandler message_handler.Handler_Closed, AddressOf ShowRemoteDisabled
     End Sub
 
     Private Sub btnConnect_Click(sender As Object, e As EventArgs) Handles btnConnect.Click
@@ -69,6 +71,24 @@
     End Sub
 
     Private Sub btnRemoteOnOff_Click(sender As Object, e As EventArgs) Handles btnRemoteOnOff.Click
-        message_handler.setUris("tcp://*:5555")
+        If message_handler.Connected() Then
+            message_handler.Close()
+        Else
+            message_handler.setUris("tcp://*:5555")
+        End If
+    End Sub
+
+    Private Sub ShowRemoteEnabled()
+        btnRemoteOnOff.Text = "Disable"
+        lblRemoteStatus.Text = "Enabled"
+        lblRemoteStatus.ForeColor = Color.FromName("DarkGreen")
+        txtRemoteUri.Enabled = False
+    End Sub
+
+    Private Sub ShowRemoteDisabled()
+        btnRemoteOnOff.Text = "Enable"
+        lblRemoteStatus.Text = "Disabled"
+        lblRemoteStatus.ForeColor = Color.FromName("Orange")
+        txtRemoteUri.Enabled = True
     End Sub
 End Class

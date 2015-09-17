@@ -35,12 +35,10 @@ Partial Class frmAnalystControl
         Me.btnQueueStart = New System.Windows.Forms.Button()
         Me.btnQueueReady = New System.Windows.Forms.Button()
         Me.grpRemoteControl = New System.Windows.Forms.GroupBox()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.lblRemoteStatus = New System.Windows.Forms.Label()
+        Me.lblRemoteStatusTag = New System.Windows.Forms.Label()
         Me.btnRemoteOnOff = New System.Windows.Forms.Button()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Button3 = New System.Windows.Forms.Button()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.txtRemoteUri = New System.Windows.Forms.TextBox()
         Me.grpAnalyst.SuspendLayout()
         Me.grpQueue.SuspendLayout()
         Me.grpRemoteControl.SuspendLayout()
@@ -62,11 +60,11 @@ Partial Class frmAnalystControl
         Me.grpAnalyst.Controls.Add(Me.lblAnalystStatusTag)
         Me.grpAnalyst.Controls.Add(Me.grpQueue)
         Me.grpAnalyst.Controls.Add(Me.btnConnect)
-        Me.grpAnalyst.Location = New System.Drawing.Point(9, 10)
+        Me.grpAnalyst.Location = New System.Drawing.Point(11, 63)
         Me.grpAnalyst.Margin = New System.Windows.Forms.Padding(2)
         Me.grpAnalyst.Name = "grpAnalyst"
         Me.grpAnalyst.Padding = New System.Windows.Forms.Padding(2)
-        Me.grpAnalyst.Size = New System.Drawing.Size(321, 186)
+        Me.grpAnalyst.Size = New System.Drawing.Size(321, 142)
         Me.grpAnalyst.TabIndex = 3
         Me.grpAnalyst.TabStop = False
         Me.grpAnalyst.Text = "Analyst"
@@ -192,47 +190,45 @@ Partial Class frmAnalystControl
         '
         'grpRemoteControl
         '
-        Me.grpRemoteControl.Controls.Add(Me.Label1)
-        Me.grpRemoteControl.Controls.Add(Me.Label2)
+        Me.grpRemoteControl.Controls.Add(Me.txtRemoteUri)
+        Me.grpRemoteControl.Controls.Add(Me.lblRemoteStatus)
+        Me.grpRemoteControl.Controls.Add(Me.lblRemoteStatusTag)
         Me.grpRemoteControl.Controls.Add(Me.btnRemoteOnOff)
-        Me.grpRemoteControl.Controls.Add(Me.Button2)
-        Me.grpRemoteControl.Controls.Add(Me.Button3)
-        Me.grpRemoteControl.Controls.Add(Me.Button4)
-        Me.grpRemoteControl.Location = New System.Drawing.Point(10, 203)
+        Me.grpRemoteControl.Location = New System.Drawing.Point(11, 11)
         Me.grpRemoteControl.Margin = New System.Windows.Forms.Padding(2)
         Me.grpRemoteControl.Name = "grpRemoteControl"
         Me.grpRemoteControl.Padding = New System.Windows.Forms.Padding(2)
-        Me.grpRemoteControl.Size = New System.Drawing.Size(252, 74)
+        Me.grpRemoteControl.Size = New System.Drawing.Size(303, 48)
         Me.grpRemoteControl.TabIndex = 4
         Me.grpRemoteControl.TabStop = False
         Me.grpRemoteControl.Text = "Remote control"
         '
-        'Label1
+        'lblRemoteStatus
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.ForeColor = System.Drawing.Color.Orange
-        Me.Label1.Location = New System.Drawing.Point(45, 22)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(56, 15)
-        Me.Label1.TabIndex = 5
-        Me.Label1.Text = "Disabled"
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblRemoteStatus.AutoSize = True
+        Me.lblRemoteStatus.ForeColor = System.Drawing.Color.Orange
+        Me.lblRemoteStatus.Location = New System.Drawing.Point(45, 22)
+        Me.lblRemoteStatus.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblRemoteStatus.Name = "lblRemoteStatus"
+        Me.lblRemoteStatus.Size = New System.Drawing.Size(56, 15)
+        Me.lblRemoteStatus.TabIndex = 5
+        Me.lblRemoteStatus.Text = "Disabled"
+        Me.lblRemoteStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'Label2
+        'lblRemoteStatusTag
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(4, 22)
-        Me.Label2.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(44, 15)
-        Me.Label2.TabIndex = 4
-        Me.Label2.Text = "Status:"
-        Me.Label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblRemoteStatusTag.AutoSize = True
+        Me.lblRemoteStatusTag.Location = New System.Drawing.Point(4, 22)
+        Me.lblRemoteStatusTag.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblRemoteStatusTag.Name = "lblRemoteStatusTag"
+        Me.lblRemoteStatusTag.Size = New System.Drawing.Size(44, 15)
+        Me.lblRemoteStatusTag.TabIndex = 4
+        Me.lblRemoteStatusTag.Text = "Status:"
+        Me.lblRemoteStatusTag.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'btnRemoteOnOff
         '
-        Me.btnRemoteOnOff.Location = New System.Drawing.Point(153, 20)
+        Me.btnRemoteOnOff.Location = New System.Drawing.Point(211, 18)
         Me.btnRemoteOnOff.Margin = New System.Windows.Forms.Padding(2)
         Me.btnRemoteOnOff.Name = "btnRemoteOnOff"
         Me.btnRemoteOnOff.Size = New System.Drawing.Size(56, 19)
@@ -240,44 +236,19 @@ Partial Class frmAnalystControl
         Me.btnRemoteOnOff.Text = "Enable"
         Me.btnRemoteOnOff.UseVisualStyleBackColor = True
         '
-        'Button2
+        'txtRemoteUri
         '
-        Me.Button2.Enabled = False
-        Me.Button2.Location = New System.Drawing.Point(187, 49)
-        Me.Button2.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(56, 19)
-        Me.Button2.TabIndex = 2
-        Me.Button2.Text = "Stop"
-        Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Button3
-        '
-        Me.Button3.Enabled = False
-        Me.Button3.Location = New System.Drawing.Point(126, 49)
-        Me.Button3.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(56, 19)
-        Me.Button3.TabIndex = 1
-        Me.Button3.Text = "Start"
-        Me.Button3.UseVisualStyleBackColor = True
-        '
-        'Button4
-        '
-        Me.Button4.Enabled = False
-        Me.Button4.Location = New System.Drawing.Point(65, 49)
-        Me.Button4.Margin = New System.Windows.Forms.Padding(2)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(56, 19)
-        Me.Button4.TabIndex = 0
-        Me.Button4.Text = "Ready"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.txtRemoteUri.Location = New System.Drawing.Point(106, 20)
+        Me.txtRemoteUri.Name = "txtRemoteUri"
+        Me.txtRemoteUri.Size = New System.Drawing.Size(100, 20)
+        Me.txtRemoteUri.TabIndex = 6
+        Me.txtRemoteUri.Text = "tcp://*:5555"
         '
         'frmAnalystControl
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(340, 306)
+        Me.ClientSize = New System.Drawing.Size(337, 210)
         Me.Controls.Add(Me.grpRemoteControl)
         Me.Controls.Add(Me.grpAnalyst)
         Me.Margin = New System.Windows.Forms.Padding(2)
@@ -304,11 +275,9 @@ Partial Class frmAnalystControl
     Friend WithEvents lblAnalystStatus As Label
     Friend WithEvents lblAnalystStatusTag As Label
     Friend WithEvents grpRemoteControl As GroupBox
-    Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents lblRemoteStatus As Label
+    Friend WithEvents lblRemoteStatusTag As Label
     Friend WithEvents btnRemoteOnOff As Button
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Button3 As Button
-    Friend WithEvents Button4 As Button
     Friend WithEvents btnQueueStopAcquisition As Button
+    Friend WithEvents txtRemoteUri As TextBox
 End Class
