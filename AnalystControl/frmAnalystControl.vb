@@ -2,18 +2,13 @@
     Dim analystControl_ As AnalystControl
     Dim message_handler As AnalystRemoteHandler
 
-    Public Function GetAnalystControl()
-        Return analystControl_
-    End Function
-
-
     Private Sub frmAnalystControl_Closing(sender As Object, e As EventArgs) Handles MyBase.Closing
         message_handler.Close()
     End Sub
 
     Private Sub frmAnalystControl_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         analystControl_ = New AnalystControl()
-        message_handler = New AnalystRemoteHandler(Me)
+        message_handler = New AnalystRemoteHandler(analystControl_)
         AddHandler analystControl_.Analyst_Initialized, AddressOf EnableAnalystUI
         AddHandler analystControl_.Queue_Initialized, AddressOf EnableQueueUI
     End Sub
@@ -67,7 +62,6 @@
             ' Connected to Analyst queue successfully.
             lblStatus.Text = "Connected"
             lblStatus.ForeColor = Color.FromName("DarkGreen")
-            'btnQueueConnect.Enabled = False
             For Each button In {btnQueueReady, btnQueueStart, btnQueueStop, btnQueueStopAcquisition}
                 button.Enabled = True
             Next

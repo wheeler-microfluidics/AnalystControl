@@ -2,12 +2,12 @@
     Dim context As NetMQ.NetMQContext
     Dim poller As NetMQ.Poller
     Dim repSocket As NetMQ.NetMQSocket
-    Dim analystControlForm As frmAnalystControl
+    Dim analystControl As AnalystControl
     Dim initialized As Boolean
     Dim responseCode
 
-    Public Sub New(ByRef analystControl_ As frmAnalystControl)
-        analystControlForm = analystControl_
+    Public Sub New(ByRef analystControl_ As AnalystControl)
+        analystControl = analystControl_
         responseCode = Nothing
     End Sub
 
@@ -46,19 +46,19 @@
         reqMsg = NetMQ.ReceivingSocketExtensions.ReceiveFrameString(e.Socket)
         Try
             If reqMsg = "Connect" Then
-                analystControlForm.GetAnalystControl().Connect()
+                analystControl.Connect()
                 'analystControlForm.Draw()
             ElseIf reqMsg = "QueueConnect" Then
-                analystControlForm.GetAnalystControl().QueueConnect(True)
+                analystControl.QueueConnect(True)
                 'analystControlForm.Draw()
             ElseIf reqMsg = "Ready" Then
-                analystControlForm.GetAnalystControl().Ready()
+                analystControl.Ready()
             ElseIf reqMsg = "StartAcquisition" Then
-                analystControlForm.GetAnalystControl().StartAcquisition()
+                analystControl.StartAcquisition()
             ElseIf reqMsg = "StopAcquisition" Then
-                analystControlForm.GetAnalystControl().StopAcquisition()
+                analystControl.StopAcquisition()
             ElseIf reqMsg = "StopQueue" Then
-                analystControlForm.GetAnalystControl().StopQueue()
+                analystControl.StopQueue()
             Else
                 responseCode = "UNKNOWN:" + reqMsg
                 Return
