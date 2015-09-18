@@ -22,7 +22,8 @@ Public Class AnalystControl
             status = New SampleStatusSvr()
             status.SubscribeToLocalQSD()
 
-            AddHandler status.QServerStateUpdate, AddressOf status_QServerStateUpdate            RaiseEvent Analyst_Initialized()
+            AddHandler status.QServerStateUpdate, AddressOf status_QServerStateUpdate
+            RaiseEvent Analyst_Initialized()
             Return True
         Else
             Return False
